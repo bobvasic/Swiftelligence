@@ -10,8 +10,8 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - name: Install stable Rust
-        run: rustup toolchain install stable --profile minimal --component rustfmt clippy && rustup default stable
+      - name: Install Rust toolchain (pinned to the version verified for this release)
+        run: rustup toolchain install 1.98.0 --profile minimal --component rustfmt --component clippy && rustup default 1.98.0
       - name: Formatting
         run: cargo fmt --all -- --check
       - name: Static checks
