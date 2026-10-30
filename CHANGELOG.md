@@ -8,6 +8,10 @@
 - Optional Servo browser runtime with restricted WebDriver actions and local-only Ollama action proposals. AI plans preview by default and require explicit execution.
 - Hierarchical architecture, research, document, browser runtime and security documentation with Mermaid diagrams.
 
+### Changed
+
+- Pin GitHub Actions to Ubuntu 24.04 and a Node 24-based checkout action for reproducible CI.
+
 ### Security
 
 - Restrict WebDriver to host loopback, enforce explicit browser-network-risk acknowledgement, validate top-level URLs and anchor targets, and cap driver replies and action plans.
