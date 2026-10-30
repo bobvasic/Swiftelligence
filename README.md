@@ -7,6 +7,7 @@
 **Search. Retrieve. Verify.** A small, open-source Rust CLI for public web research.
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-D63B3B?style=flat-square)](LICENSE)
+[![CI](https://github.com/bobvasic/Swiftelligence/actions/workflows/ci.yml/badge.svg)](https://github.com/bobvasic/Swiftelligence/actions/workflows/ci.yml)
 ![Rust](https://img.shields.io/badge/engine-Rust-302C2D?style=flat-square)
 ![No required API key](https://img.shields.io/badge/API%20key-not%20required-302C2D?style=flat-square)
 
@@ -29,13 +30,13 @@ No account, token, paid search API, tracking endpoint, or hosted Swiftel service
 ### Start in under a minute
 
 ```bash
-git clone <YOUR-PUBLISHED-SWIFTEL-REPOSITORY-URL>
-cd Swiftel
+git clone https://github.com/bobvasic/Swiftelligence.git
+cd Swiftelligence
 cargo build --release
 ./target/release/swiftel --help
 ```
 
-The clone URL is intentionally a placeholder until this repository is published; do not use it literally. Requires a current stable Rust toolchain and outbound network access. Binary builds locally; there are no runtime language runtimes or services for basic commands.
+Requires a current stable Rust toolchain and outbound network access. Binary builds locally; there are no runtime language runtimes or services for basic commands.
 
 ```bash
 # Discover relevant public pages
@@ -117,4 +118,4 @@ cargo clippy --locked --all-targets -- -D warnings
 cargo test --locked --all-targets
 ```
 
-The source is MIT licensed. No real case evidence, account identifiers, API keys, or private research results belong in this repository.
+The source is MIT licensed. See [release history](CHANGELOG.md). No real case evidence, account identifiers, API keys, or private research results belong in this repository.

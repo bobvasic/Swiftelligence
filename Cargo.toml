@@ -5,6 +5,7 @@ edition = "2024"
 description = "A small, evidence-aware public web research CLI"
 license = "MIT"
 readme = "README.md"
+repository = "https://github.com/bobvasic/Swiftelligence"
 
 [dependencies]
 anyhow = "1"
