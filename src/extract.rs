@@ -12,6 +12,7 @@ pub struct Page {
     pub url: String,
     pub title: String,
     pub text: String,
+    pub markdown: String,
     pub links: Vec<String>,
     pub status: u16,
     pub retrieved_at: DateTime<Utc>,
@@ -39,9 +40,25 @@ pub async fn fetch_page(client: &HttpClient, input: &str, origin: Option<&str>) 
     {
         bail!("response is not recognizable HTML at {}", response.url);
     }
-    let hash = format!("{:x}", Sha256::digest(&response.body));
-    let html = String::from_utf8_lossy(&response.body);
-    let (title, text, links) = extract_html(&html, &response.url);
+    page_from_html(
+        &String::from_utf8_lossy(&response.body),
+        &response.url,
+        response.status,
+        response.retrieved_at,
+        &response.body,
+    )
+}
+
+/// Build a provenance-bearing record from fetched or browser-rendered HTML.
+pub fn page_from_html(
+    html: &str,
+    source: &str,
+    status: u16,
+    retrieved_at: DateTime<Utc>,
+    raw: &[u8],
+) -> Result<Page> {
+    let hash = format!("{:x}", Sha256::digest(raw));
+    let (title, text, links) = extract_html(html, source);
     let heading = title.to_ascii_lowercase();
     if text.trim().is_empty()
         || [
@@ -60,16 +77,17 @@ pub async fn fetch_page(client: &HttpClient, input: &str, origin: Option<&str>) 
     {
         bail!(
             "challenge or empty JS shell at {}; content not verified",
-            response.url
+            source
         );
     }
     Ok(Page {
-        url: response.url,
+        url: source.to_string(),
         title,
         text,
+        markdown: crate::markdown::convert(html, source),
         links,
-        status: response.status,
-        retrieved_at: response.retrieved_at,
+        status,
+        retrieved_at,
         sha256: hash,
     })
 }

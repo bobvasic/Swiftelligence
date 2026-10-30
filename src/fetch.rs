@@ -29,6 +29,10 @@ impl HttpClient {
         Self { allow_private }
     }
 
+    pub fn allow_private(&self) -> bool {
+        self.allow_private
+    }
+
     pub async fn get(
         &self,
         input: &str,

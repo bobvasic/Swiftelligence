@@ -7,6 +7,7 @@ use url::Url;
 #[derive(Debug, Default)]
 pub struct Robots {
     groups: Vec<Group>,
+    sitemaps: Vec<String>,
 }
 
 #[derive(Debug, Default)]
@@ -33,6 +34,9 @@ impl Robots {
             };
             let (key, value) = (key.trim().to_ascii_lowercase(), value.trim());
             match key.as_str() {
+                "sitemap" if robots.sitemaps.len() < 20 => {
+                    robots.sitemaps.push(value.to_string());
+                }
                 "user-agent" => {
                     if !current.rules.is_empty() || current.delay.is_some() {
                         robots.groups.push(current);
@@ -59,6 +63,10 @@ impl Robots {
             robots.groups.push(current);
         }
         robots
+    }
+
+    pub fn sitemaps(&self) -> &[String] {
+        &self.sitemaps
     }
 
     fn selected(&self) -> Vec<&Group> {
