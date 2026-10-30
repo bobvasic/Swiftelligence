@@ -1,0 +1,11 @@
+/target
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.key
+*.log
+.DS_Store
+.swiftel/
+output/
